@@ -1,0 +1,36 @@
+<div class="chatContainer">
+  <div class="allMessages" id="allMessages">
+      <div class="commentUser" [ngClass]="{rowReverse:msg.fromId==currUser.id}" *ngFor="let msg of messageList">
+        <div class="nameCircle" [ngStyle]="{'background-color':colorslist[msg.fromName.toLowerCase().charCodeAt(0)-97] }">
+            <p class="letter">{{msg.fromName.substring(0, 1)}}</p>
+        </div>
+        <div class="nameAndMsg">
+          <div class="userName">
+            {{msg.fromName}}
+          </div>
+          <div class="messageContent">
+            {{msg.message}}
+          </div>
+        </div>
+      </div>
+  </div>
+
+  <div class="recieverAndMsgs">
+    <!-- <div class="receiver">
+      To:
+      <select (change)="setReceiver($event)">
+        <option value=0>None</option>
+        <option *ngFor="let user of UsersData" [value]="user.id">{{user.name}}</option>
+      </select>
+    </div> -->
+    
+    <div class="newMessageInput" *ngIf="enable">
+      <textarea [(ngModel)]="newMessage.message" (keyup)="$event.keyCode == 13 && sendMessage()" ></textarea>
+      <button (click)="sendMessage()">
+        <img src="./assets/arrow.svg" />
+      </button>
+    </div>
+    
+  </div>
+
+</div>

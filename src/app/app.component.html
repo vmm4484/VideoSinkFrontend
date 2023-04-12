@@ -1,0 +1,12 @@
+<div class="container" *ngIf="!done">
+    <div class="innerContainer">
+        <input placeholder="enter User Id" [(ngModel)]="user.id" />
+        <input placeholder="enter User Name" [(ngModel)]="user.name" />
+        <!-- <input type="text" [(ngModel)]="srcUrl" placeholder="please paste the url"> -->
+        <input id="files" hidden type="file" (change)="onChange($event)" accept="video/*" class="hidden"/>
+        <label for="files">Select file</label>
+        <button (click)="Submit()">Submit</button>
+    </div>
+</div>
+<app-video-player *ngIf="done" [file]="file"></app-video-player>
+<app-chat class="chatcomponent" *ngIf="done" [userId]="user.id" [userName]="user.name"></app-chat>
