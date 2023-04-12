@@ -11,7 +11,8 @@ export class SyncService {
   public togglePlay$: BehaviorSubject<togglePlayTime> = new BehaviorSubject<togglePlayTime>({} as togglePlayTime);
   constructor() { }
 
-  socket = io('http://localhost:3000');
+  // socket = io('http://localhost:3000');
+  socket =io('https://videosyncplayerbackend.onrender.com')
   public sendNewTime(newtime: any) {
     this.socket.emit('setnewTime', newtime);
   }

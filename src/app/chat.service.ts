@@ -11,8 +11,8 @@ export class ChatService {
 
   public message$: BehaviorSubject<message> = new BehaviorSubject({} as message);
   public user$: BehaviorSubject<User[]> = new BehaviorSubject<User[]>([]);
-  // socket = io('https://node-api-1wbx.onrender.com');
-  socket = io('http://localhost:3000');
+  socket =io('https://videosyncplayerbackend.onrender.com')
+  // socket = io('http://localhost:3000');
   constructor() { }
 
   public addToUsers=(user:User)=>{
