@@ -1,3 +1,20 @@
-<video (click)="toggle()" controls ></video>
+<div class="video-container" id="video-container" (click)="displayOptions()" (mouseenter)="displayOptions()" (mouseleave)="hideOptions()">
+    <video (loadeddata)="calculateDuration()" (timeupdate)="calculateDuration()" (ended)="changeButton()"></video>
+    <div class="video-controls" id="video-controls" (mouseenter)="displayOptions()">
+      <div class="timeline">
+        <input type="range" step="0.01" (input)="MoveToSkip($event)" [(ngModel)]="currPosition"  class="video-timeLine" id="seeker" [max]="videoLength" >
+      </div>
+      <div class="inner-controls">
+        <button class="button play-button" title="play" (click)="PlayPauseToggle()">▶</button>
+        <div class="spacer"></div>
+      <input type="range" class="volume" min="0" max="1" value="1" step="0.01" (input)="videoVolumeChange($event)">
+      <button class="button fullscreen-button" (click)="toggleFullScreen()">[&nbsp;&nbsp;]</button>
+      <div class="time">
+        <span class="current"></span> / <span class="duration"></span>
+      </div>
+      </div>
+    </div>
+  </div>
+
 
 <p>{{filename}}</p>
