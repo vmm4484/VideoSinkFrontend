@@ -5,12 +5,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ChatComponent } from './chat/chat.component';
 import { VideoPlayerComponent } from './video-player/video-player.component';
+import { DecryptPipe } from './decrypt.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
     ChatComponent,
-    VideoPlayerComponent
+    VideoPlayerComponent,
+    DecryptPipe
   ],
   imports: [
     BrowserModule,
