@@ -8,7 +8,7 @@ import { togglePlayTime } from './video-player/video-player.component';
 })
 export class SyncService {
   public newTime$: BehaviorSubject<number> = new BehaviorSubject(0);
-  public togglePlay$: BehaviorSubject<togglePlayTime> = new BehaviorSubject<togglePlayTime>({} as togglePlayTime);
+  public togglePlay$: BehaviorSubject<togglePlayTime> = new BehaviorSubject<togglePlayTime>({of:0,time:0} as togglePlayTime);
   constructor() { }
 
   // socket = io('http://localhost:3000');

@@ -44,11 +44,17 @@ export class VideoPlayerComponent implements OnInit,OnChanges{
         console.log(data);
         
         let video = document.getElementsByTagName('video')[0];
+        let playbutton=document.getElementsByClassName('play-button')[0];
+        let centerplaybutton=document.getElementsByClassName("play-pause")[0];
         video.currentTime=data.time;
         if (data.of == 0) {
-          document.getElementsByTagName('video')[0].pause();
+          playbutton.textContent='▶';
+          centerplaybutton.textContent='▶';
+          video.pause();
         } else {
-          document.getElementsByTagName('video')[0].play();
+          playbutton.textContent='| |'
+          centerplaybutton.textContent='| |'
+          video.play();
         }
       });
 
@@ -57,29 +63,27 @@ export class VideoPlayerComponent implements OnInit,OnChanges{
 
   @HostListener('document:keydown', ['$event'])
   handleKeyboardEvent1(event: KeyboardEvent) {
-
-    let video = document.getElementsByTagName('video')[0];
-
     if (event.code == "ArrowRight") {
-      video.currentTime += 5;
-      let time = video.currentTime + 5;
-
-      this.service.sendNewTime(time);
-
+      this.skipForward();
     } else if (event.code == "ArrowLeft") {
-      video.currentTime -= 5;
-      let time = video.currentTime - 5;
-      this.service.sendNewTime(time);
-
-    } else if (event.code == "Space") {
-      this.toggle();
+      this.skipBackward();
     }
+  }
+  skipForward(){
+    let video = document.getElementsByTagName('video')[0];
+    let time = Math.floor(video.currentTime) + 5;
+    this.service.sendNewTime(time);
+  }
+  skipBackward(){
+    let video = document.getElementsByTagName('video')[0];
+    let time = Math.floor(video.currentTime) - 5;
+    this.service.sendNewTime(time);
   }
   toggle() {
 
     let video = document.getElementsByTagName('video')[0];
     let tgof={} as togglePlayTime;
-    tgof.time=video.currentTime;
+    tgof.time=Math.floor(video.currentTime);
     if (video.paused) {
       tgof.of=1;
       this.service.requestToggle(tgof);
@@ -92,11 +96,14 @@ export class VideoPlayerComponent implements OnInit,OnChanges{
   PlayPauseToggle(){
     let video=document.getElementsByTagName('video')[0];
     let playbutton=document.getElementsByClassName('play-button')[0];
+    let centerplaybutton=document.getElementsByClassName("play-pause")[0];
     if(video.paused){
       playbutton.textContent='| |'
+      centerplaybutton.textContent='| |'
       video.play();
     }else{
-      playbutton.textContent='▶'
+      playbutton.textContent='▶';
+      centerplaybutton.textContent='▶';
       video.pause();
     }
   }
@@ -104,7 +111,9 @@ export class VideoPlayerComponent implements OnInit,OnChanges{
   changeButton(){
     let video=document.getElementsByTagName('video')[0];
     let playbutton=document.getElementsByClassName('play-button')[0];
-    playbutton.textContent='▶'
+    let centerplaybutton=document.getElementsByClassName("play-pause")[0];
+    playbutton.textContent='▶';
+    centerplaybutton.textContent='▶';
   }
   videoVolumeChange(e:any){
     let video=document.getElementsByTagName('video')[0];
@@ -149,6 +158,7 @@ export class VideoPlayerComponent implements OnInit,OnChanges{
   }
   displayOptions(){
     document.getElementById("video-controls")!.style.transform="translateY(0%)";
+    (<HTMLDivElement>document.getElementsByClassName('skip-button')[0])!.style.display="flex";
     if(this.prevId){
       clearTimeout(this.prevId);
       this.prevId=0;
@@ -162,5 +172,6 @@ export class VideoPlayerComponent implements OnInit,OnChanges{
   }
   hideOptions(){
     document.getElementById("video-controls")!.style.transform="translateY(100%) translateY(-20%)";
+    (<HTMLDivElement>document.getElementsByClassName('skip-button')[0])!.style.display="none";
   }
 }

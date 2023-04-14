@@ -71,6 +71,7 @@ p{
     background: transparent;
     border: none;
     color: white;
+    cursor: pointer;
 }
 .time{
     display: flex;
@@ -79,7 +80,30 @@ p{
 .spacer{
     flex: 1 0 0;
 }
+.skip-button{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 100%;
+    color: white;
+    display: none;
+    justify-content: space-around;
+    align-items: center;
+    height: 100%;
+    opacity: 0.3;
+    transition: 0.3s;
+    background-color: black;
+}
+.left , .play-pause{
+    font-size: 150%;
+}
+.right{
+    font-size: 150%;
+}
+.play-pause{
 
+}
 @media only screen and (max-width: 500px) {
     .video-container{
         margin-top: 5%;
