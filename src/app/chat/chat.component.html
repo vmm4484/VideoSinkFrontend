@@ -25,8 +25,10 @@
     </div> -->
     
     <div class="newMessageInput" *ngIf="enable">
-      <textarea [(ngModel)]="newMessage.message" (keyup)="$event.keyCode == 13 && sendMessage()" ></textarea>
-      <button (click)="sendMessage()">
+      <textarea [(ngModel)]="newMessage.message" (keyup)="$event.keyCode == 13 && sendMessage()" type="text" name="textarea"></textarea>
+      <button class="textarea-emoji" (click)="isEmojiPickerVisible = !isEmojiPickerVisible;">😀</button>
+      <emoji-mart [perLine]='5' [emojiTooltip]="false" [darkMode]="true" [showPreview]="false" [enableSearch]="false" [include]="categories" class="emoji-mart1 moji-mart" *ngIf="isEmojiPickerVisible" (emojiSelect)="addEmoji($event)" title="Choose your emoji"></emoji-mart>
+      <button class="sendMsg" (click)="sendMessage()">
         <img src="./assets/arrow.svg" />
       </button>
     </div>

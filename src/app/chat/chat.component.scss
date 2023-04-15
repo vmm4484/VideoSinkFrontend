@@ -8,11 +8,14 @@ p{
     width: 20vw;
     background-color: #6b6b6b4f;
     height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .allMessages{
-    padding: 5%;
-    height: 87%;
+    padding: 0% 5% 5% 5%;
+    height: 90%;
     color: white;
     overflow: auto;
 }
@@ -32,15 +35,17 @@ p{
 }
 
 .newMessageInput > textarea{
-    padding: 3px 3px 0px 3px;
+    
+    padding: 3px 8% 0px 3px;
     box-shadow: -4px 4px 4px rgba(255, 255, 255, 0.25);
     outline: none;
     resize: none;
     width: 80%;
-    height: 25px;
+    height: 30px;
+    padding-right: 8%;
 }
 
-.newMessageInput > button{
+.newMessageInput > .sendMsg{
     cursor: pointer;
     border-radius: 50%;
     border: none;
@@ -96,10 +101,20 @@ p{
     font-size: 12px;
 }
 
-// .messageContent{
-//     margin-top: 3px;
-// }
+.emoji-mart1{
+    position: absolute;
+    bottom: 10%;
+}
 
+.textarea-emoji{
+    position: absolute;
+    right: 20%;
+    background: transparent;
+    border: none;
+    height: 35px;
+    width: 35px;
+    cursor: pointer;
+}
 @media only screen and (max-width: 500px) {
     .chatContainer{
         width: 90vw;
@@ -120,5 +135,8 @@ p{
     }
     .messageContent{
         font-size: 18px;
+    }
+    .textarea-emoji{
+        right: 22%;
     }
 }

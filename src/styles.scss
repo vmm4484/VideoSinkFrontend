@@ -3,7 +3,16 @@
     margin: 0;
     padding: 0;
     font-family: cursive;
+    box-sizing: border-box;
 }
 body{
     background-color: black;
+}
+
+.emoji-mart-scroll::-webkit-scrollbar{
+    display: none;
+}
+
+textarea::-webkit-scrollbar{
+    display: none;
 }
