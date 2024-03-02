@@ -20,6 +20,8 @@ export class VideoPlayerComponent implements OnInit,OnChanges{
   videoLength:any;
   currPosition:any;
   prevId: any;
+  moveTiming:number = 10;
+  
   constructor(private service: SyncService) { }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -41,8 +43,6 @@ export class VideoPlayerComponent implements OnInit,OnChanges{
       });
   
       this.service.getToggleRequest().subscribe((data:togglePlayTime) => {
-        console.log(data);
-        
         let video = document.getElementsByTagName('video')[0];
         let playbutton=document.getElementsByClassName('play-button')[0];
         let centerplaybutton=document.getElementsByClassName("play-pause")[0];
@@ -57,8 +57,6 @@ export class VideoPlayerComponent implements OnInit,OnChanges{
           video.play();
         }
       });
-
-    
   }
 
   @HostListener('document:keydown', ['$event'])
@@ -71,12 +69,12 @@ export class VideoPlayerComponent implements OnInit,OnChanges{
   }
   skipForward(){
     let video = document.getElementsByTagName('video')[0];
-    let time = Math.floor(video.currentTime) + 5;
+    let time = Math.floor(video.currentTime) + this.moveTiming;
     this.service.sendNewTime(time);
   }
   skipBackward(){
     let video = document.getElementsByTagName('video')[0];
-    let time = Math.floor(video.currentTime) - 5;
+    let time = Math.floor(video.currentTime) - this.moveTiming;
     this.service.sendNewTime(time);
   }
   toggle() {
@@ -136,13 +134,12 @@ export class VideoPlayerComponent implements OnInit,OnChanges{
   }
 
   MoveToSkip(e:any){
-    console.log(e.target.value);
-    
     let video=document.getElementsByTagName('video')[0];
     video.currentTime=e.target.value;
     let val=(video.currentTime)/(this.videoLength)*100;
     document.getElementById('seeker')!.style.background='linear-gradient(to right, #ff5600 0%, #ff5600 ' + val + '%, #fff ' + val + '%, white 100%)';
   }
+
   toggleFullScreen(){
     let elem = document.querySelector(".video-container")!;
 

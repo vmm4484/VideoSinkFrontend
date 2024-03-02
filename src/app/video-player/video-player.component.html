@@ -1,9 +1,9 @@
 <div class="video-container" id="video-container" (click)="displayOptions()" (mousemove)="displayOptions()" (mouseleave)="hideOptions()">
   <video (loadeddata)="calculateDuration()" (timeupdate)="calculateDuration()" (ended)="changeButton()"></video>
   <div class="skip-button">
-      <button class="button left" (click)="skipBackward()">&lt; 5</button>
+      <button class="button left" (click)="skipBackward()">&lt; {{moveTiming}}</button>
       <button class="button play-pause" (click)="toggle()">▶</button>
-      <button class="button right" (click)="skipForward()">5 &gt;</button>
+      <button class="button right" (click)="skipForward()">{{moveTiming}} &gt;</button>
   </div>
   <div class="video-controls" id="video-controls" (mouseenter)="displayOptions()">
     <div class="timeline">

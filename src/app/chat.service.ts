@@ -1,35 +1,40 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { io } from "socket.io-client";
+import { io } from 'socket.io-client';
 import { User, message } from './chat/chat.component';
 import * as CryptoJS from 'crypto-js';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ChatService {
+  url = environment.url;
 
-  secretKey = "MohanSecretKey";
-  public message$: BehaviorSubject<message> = new BehaviorSubject({} as message);
+  secretKey = 'MohanSecretKey';
+  public message$: BehaviorSubject<message> = new BehaviorSubject(
+    {} as message
+  );
   public user$: BehaviorSubject<User[]> = new BehaviorSubject<User[]>([]);
-  socket =io('https://videosyncplayerbackend.onrender.com')
-  // socket = io('http://localhost:3000');
-  constructor() { }
+  socket = io(this.url);
+  constructor() {}
 
-  public addToUsers=(user:User)=>{
-    this.socket.emit('connection',user);
-  }
-  public getNewUsers=()=>{
-    this.socket.on('connection',(RevUsers:User[])=>{
+  public addToUsers = (user: User) => {
+    this.socket.emit('connection', user);
+  };
+  public getNewUsers = () => {
+    this.socket.on('connection', (RevUsers: User[]) => {
       this.user$.next(RevUsers);
     });
     return this.user$.asObservable();
-  }
+  };
 
   public sendMessage(message: any) {
-    console.log('sendMessage: ', message)
-    message.message=CryptoJS.AES.encrypt(message.message, this.secretKey).toString();
-    
+    message.message = CryptoJS.AES.encrypt(
+      message.message,
+      this.secretKey
+    ).toString();
+
     this.socket.emit('message', message);
   }
 
@@ -38,11 +43,10 @@ export class ChatService {
   // }
 
   public getNewMessage = () => {
-    this.socket.on('message', (data:message) =>{
+    this.socket.on('message', (data: message) => {
       this.message$.next(data);
     });
 
     return this.message$.asObservable();
   };
-
 }

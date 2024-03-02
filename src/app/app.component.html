@@ -5,7 +5,7 @@
         <!-- <input type="text" [(ngModel)]="srcUrl" placeholder="please paste the url"> -->
         <input id="files" hidden type="file" (change)="onChange($event)" accept="video/*" class="hidden"/>
         <label for="files">Select file</label>
-        <button (click)="Submit()">Submit</button>
+        <button class="submit-button" (click)="Submit()">Submit</button>
     </div>
 </div>
 <app-video-player *ngIf="done" [file]="file"></app-video-player>

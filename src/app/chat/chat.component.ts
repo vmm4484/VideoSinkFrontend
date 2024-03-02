@@ -59,8 +59,6 @@ export class ChatComponent implements OnInit,OnChanges{
     this.chatService.addToUsers(this.currUser);
 
     this.chatService.getNewUsers().subscribe((RevUsers:User[])=>{
-      console.log(RevUsers);
-      
       this.UsersData=RevUsers.filter(data => this.currUser.id.toString()!=data.id.toString());
     });
 
